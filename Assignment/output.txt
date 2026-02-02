@@ -1,0 +1,12 @@
+Platform =win32 
+ memory = 4066164736 
+cpu = 4
+Platform =win32 
+ cpu = 4
+memory = 4066164736 
+cpu = 4
+memory = 4066164736 
+Platform =win32 
+ Platform =win32 
+ cpu = 4
+memory = 4066164736 
