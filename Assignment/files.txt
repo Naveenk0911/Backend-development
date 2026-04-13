@@ -1,0 +1,101 @@
+1) What are the advantages of using Mongoose over the native MongoDB driver?
+
+Mongoose is an ODM (Object Data Modeling) library that makes MongoDB easier to use in Node.js.
+
+Advantages:
+
+Schema-based structure
+Built-in validation
+Middleware support (pre, post)
+Population for references
+Cleaner and more maintainable code
+Virtuals and custom methods
+Automatic timestamps
+Easier CRUD operations
+
+Best interview line:
+Mongoose provides schema, validation, and middleware features that reduce manual coding compared to the native MongoDB driver.
+
+
+Explain the difference between findOneAndUpdate() and updateOne()
+findOneAndUpdate()
+Finds the first matching document
+Updates it
+Returns the updated document (if new: true is used)
+const user = await User.findOneAndUpdate(
+  { email },
+  { age: 25 },
+  { new: true }
+);
+updateOne()
+Updates the first matching document
+Returns only update result metadata
+Does not return the updated document
+const result = await User.updateOne(
+  { email },
+  { age: 25 }
+);
+
+Best interview line:
+Use findOneAndUpdate() when you need the updated document, and updateOne() when you only need update status.
+
+3) What is the purpose of middleware in Mongoose?
+
+Middleware is used to run logic before or after database events.
+
+Common use cases:
+
+Password hashing
+Logging
+Validation
+Cascading delete
+Data formatting
+Auto timestamps
+
+Example:
+
+userSchema.pre("save", async function(next) {
+  this.password = await bcrypt.hash(this.password, 10);
+  next();
+});
+
+Best interview line:
+Middleware helps automate repeated logic and keeps code reusable.
+
+4) How do you implement pagination in Mongoose?
+
+Pagination is implemented using skip() and limit().
+
+const page = 2;
+const limit = 10;
+
+const users = await User.find()
+  .skip((page - 1) * limit)
+  .limit(limit);
+
+Formula:
+skip = (page - 1) * limit
+
+Best interview line:
+For large datasets, cursor-based pagination is better because skip() can become slow.
+
+5) When should you use embedding vs referencing in MongoDB schema design?
+Use Embedding when:
+Data is small
+Child data is always used with parent
+One-to-few relationship
+Fast reads are required
+
+Example:
+
+{
+  name: "Anurag",
+  address: {
+    city: "Mathura"
+  }
+}
+Use Referencing when:
+Data is large
+Frequently updated
+Reusable in multiple places
+One-to-many or many-to-many relationship

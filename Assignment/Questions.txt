@@ -1,0 +1,100 @@
+
+1) Explain the key differences between SQL and NoSQL databases with examples
+
+SQL databases are relational, while NoSQL databases are non-relational.
+
+Feature	SQL	NoSQL
+Structure	Tables (rows/columns)	Documents, key-value, graph
+Schema	Fixed schema	Flexible schema
+Scaling	Vertical	Horizontal
+Transactions	Strong ACID	Often BASE / eventual consistency
+Best for	Banking, ERP	Social apps, real-time systems
+
+Examples:
+
+SQL: MySQL, PostgreSQL
+NoSQL: MongoDB, Cassandra
+
+Best interview line:
+Use SQL for structured and highly relational data, and NoSQL for flexible, scalable, semi-structured data.
+
+2) What does the CAP theorem state, and why can’t a distributed system guarantee all three properties?
+
+CAP theorem says a distributed system can provide only two out of three:
+
+Consistency → every node returns same latest data
+Availability → every request gets a response
+Partition Tolerance → system works even if network nodes disconnect
+
+When a network partition happens, system must choose:
+
+either return latest correct data → Consistency
+or return some response quickly → Availability
+
+It cannot guarantee both at the same time during partition.
+
+Best interview line:
+In real distributed systems, partition tolerance is mandatory, so the trade-off is usually between consistency and availability.
+
+3) Describe three scenarios where MongoDB would be preferred over a relational database
+1. Rapidly changing schema
+
+Startup apps where fields change frequently.
+
+Example: user profiles with optional social links, bio, skills.
+
+2. Large-scale real-time applications
+
+Chat apps, live feeds, analytics dashboards.
+
+MongoDB scales horizontally very well.
+
+3. Nested / hierarchical data
+
+E-commerce product catalogs, CMS, blog comments.
+
+JSON-like document structure makes nested data easier.
+
+Best interview line:
+MongoDB is preferred for flexible schema, high scalability, and document-style nested data.
+
+4) Why does MongoDB use BSON internally instead of storing documents as JSON?
+
+MongoDB uses BSON (Binary JSON) because it is faster and supports more data types than JSON.
+
+Advantages of BSON
+Faster parsing
+Compact binary storage
+Supports extra types:
+Date
+ObjectId
+Binary
+Decimal128
+Int32, Int64
+
+JSON only supports basic text-based data types.
+
+Best interview line:
+BSON improves performance and supports richer data types required by MongoDB.
+
+5) Write MongoDB queries to find all students with GPA above 3.5 and enrolled in “CS101”
+db.students.find({
+  gpa: { $gt: 3.5 },
+  courses: "CS101"
+})
+
+This works if courses is an array.
+
+Example document
+{
+  name: "Anurag",
+  gpa: 3.8,
+  courses: ["CS101", "DBMS"]
+}
+
+If course is a single string field:
+
+db.students.find({
+  gpa: { $gt: 3.5 },
+  course: "CS101"
+})
